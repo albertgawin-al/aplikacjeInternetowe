@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %} Albert Gawin - LoLearn {% endblock %}
+{% block head %}
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/icons/lolearn.png') }}" />
+<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block navbar_title %} <a class="navbar-brand" href="{{ url_for('lolearn') }}">LoLearn</a> {% endblock %}
+{% block navbar %}
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">Co to jest</a></li>
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#champions">Bohaterowie</a></li>
+<li class="nav-item mx-0 mx-lg-1 py-3 px-0 rounded" style="color: white;">|</li>
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded lolearn-link" href="{{ url_for('home') }}">Portfolio</a></li>
+{% endblock %}
+
+{% block content %}
+<!-- Masthead-->
+<header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        <h1 class="masthead-heading text-uppercase mb-0">Witaj w LoLearn</h1>
+    </div>
+</header>
+<!-- About -->
+<section class="page-section mb-0" id="about">
+    <div class="container">
+        <!-- About Section Heading-->
+        <h2 class="page-section-heading text-center text-uppercase text-secondary">Co to jest</h2>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content-->
+        <div class="row">
+            <p class="lead">
+                Jest to mały projekcik, wyświetlający informacje o wszystkich bohaterach z gry League of Legends. 
+                Za pomocą API firmy, która tą grę stworzyła można w łatwy sposób dostać się do informacji o całej grze.
+                W taki właśnie sposób, na stronie której aktualnie się znajdujesz, jestem w stanie wyświetlić awatary oraz odpowiednie
+                nazwy każdego z bohaterów w grze. 
+            </p>
+            <p class="lead">
+                Jeżeli jakiś bohater Ciebie zainteresował to śmiało kliknij w jego awatar, a zostaniejsz przeniesiony na stronę przeznaczoną
+                wyłącznie dla niego. Prawda, że super? :D
+            </p>
+        </div>
+    </div>
+</section>
+<section class="page-section bg-secondary" id="champions">
+    <div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-white mb-5">Bohaterowie</h2>
+        <div class="champions-container">
+            {% for champion in champions.values() %}
+            <a class="champion-link" href="{{ url_for('champion', name=champion.id) }}">
+                <div class="image-wrapper">
+                    <img src="http://ddragon.leagueoflegends.com/cdn/13.1.1/img/champion/{{champion.id}}.png" alt="{{champion.name}}" style="width: 100%">
+                </div>
+                <div class="champion-name">{{ champion.name }}</div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

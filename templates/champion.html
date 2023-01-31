@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ champion.name }} {% endblock %}
+{% block head %}
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/icons/lolearn.png') }}" />
+<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block navbar_title %} <a class="navbar-brand" href="{{ url_for('lolearn') }}">LoLearn</a> {% endblock %}
+{% block navbar %}
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#history">Historia</a></li>
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#skins">Skórki</a></li>
+<li class="nav-item mx-0 mx-lg-1 py-3 px-0 rounded" style="color: white;">|</li>
+<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded lolearn-link" href="{{ url_for('home') }}">Portfolio</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="champion-container">
+    <div class="champion-background" style="background-image: url('http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{champion.id}}_0.jpg')"></div>
+    <img class="champion-splash" src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{champion.id}}_0.jpg">
+</div>
+<div style="position: absolute; inset: 0px; z-index: 2;">
+    <div class="champion-title">
+        <span>{{ champion.name }}</span>
+    </div>
+</div>
+<section class="page-section bg-dark text-white mb-0" id="history">
+    <div class="container">
+        <h2 class="page-section-heading text-center text-uppercase text-white">Historia</h2>
+        <div class="lead">
+            <p>
+                {{ champion.lore }}
+            </p>
+        </div>
+    </div>
+</section>
+<section class="page-section mb-0" id="skins">
+    <div class="container">
+        <h2 class="page-section-heading text-center text-uppercase">Skórki</h2>
+        <div class="skins-container">
+            {% for skin in champion.skins %}
+            <div class="image-wrapper">
+                <a href="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/{{champion.id}}_{{skin.num}}.jpg">
+                    <img style="max-height: 400px" src="http://ddragon.leagueoflegends.com/cdn/img/champion/loading/{{champion.id}}_{{skin.num}}.jpg" alt="{{champion.name}}">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
